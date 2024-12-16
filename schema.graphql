@@ -1,0 +1,58 @@
+type Product @entity {
+  id: ID!            # Unique product ID
+  productId: BigInt! # uint256
+  tokenId: BigInt!
+  nftAddress: Bytes!
+  total: BigInt!
+  sold: BigInt!
+  price: BigInt!
+  isToken: Boolean!
+  state: Boolean!     # Product availability state
+  createdAt: BigInt!  # Timestamp of product creation
+}
+
+type AddProduct @entity(immutable: true) {
+  id: Bytes!
+  _productId: BigInt! # uint256
+  _tokenId: BigInt! # uint256
+  _nftAddress: Bytes! # address
+  _total: BigInt! # uint256
+  _price: BigInt! # uint256
+  _isToken: Boolean! # bool
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type Buy @entity(immutable: true) {
+  id: Bytes!
+  _productId: BigInt! # uint256
+  _account: Bytes! # address
+  _nft: Bytes! # address
+  _tokenID: BigInt! # uint256 
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type SetProductState @entity(immutable: true) {
+  id: Bytes!
+  _productId: BigInt! # uint256
+  _state: Boolean! # bool
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type UpdateProduct @entity(immutable: true) {
+  id: Bytes!
+  _productId: BigInt! # uint256
+  _tokenId: BigInt! # uint256
+  _nftAddress: Bytes! # address
+  _total: BigInt! # uint256
+  _price: BigInt! # uint256
+  _isToken: Boolean! # bool
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}

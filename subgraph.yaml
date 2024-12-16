@@ -1,0 +1,35 @@
+specVersion: 1.0.0
+indexerHints:
+  prune: auto
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum
+    name: CBomberShop
+    network: base-sepolia
+    source:
+      address: "0xDA195512bd126f36aD6cD987102e90Ac608855d8"
+      abi: CBomberShopABI
+      startBlock: 19286814
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities:
+        - AddProduct
+        - Buy
+        - SetProductState
+        - UpdateProduct
+      abis:
+        - name: CBomberShopABI
+          file: ./abis/CBomberShop.json
+      eventHandlers:
+        - event: AddProduct(uint256,uint256,address,uint256,uint256,bool)
+          handler: handleAddProduct
+        - event: Buy(address,address,uint256,uint256)
+          handler: handleBuy
+        - event: SetProductState(uint256,bool)
+          handler: handleSetProductState
+        - event: UpdateProduct(uint256,uint256,address,uint256,uint256,bool)
+          handler: handleUpdateProduct
+      file: ./src/mapping.ts
