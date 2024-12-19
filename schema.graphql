@@ -26,10 +26,10 @@ type AddProduct @entity(immutable: true) {
 
 type Buy @entity(immutable: true) {
   id: Bytes!
-  _productId: BigInt! # uint256
   _account: Bytes! # address
   _nft: Bytes! # address
-  _tokenID: BigInt! # uint256 
+  _tokenID: BigInt! # uint256
+  _productId: BigInt! # uint256
   blockNumber: BigInt!
   blockTimestamp: BigInt!
   transactionHash: Bytes!
