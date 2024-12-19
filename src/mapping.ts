@@ -59,7 +59,7 @@ export function handleSetProductState(event: SetProductStateEvent): void {
 
   entity.save()
 
-  let product = new Product(event.params._id.toString())
+  let product = Product.load(event.params._id.toString())
   if (product == null) {
     return // If product does not exist, do nothing
   }
@@ -86,8 +86,8 @@ export function handleUpdateProduct(event: UpdateProductEvent): void {
 
   entity.save()
 
-
-  let product = new Product(event.params._id.toString())
+ 
+  let product = Product.load(event.params._id.toString())
 
   if (product == null) {
     return // If product does not exist, do nothing
@@ -117,7 +117,7 @@ export function handleBuy(event: BuyEvent): void {
   entity.save()
 
 
-  let product = new Product(event.params._productId.toString())
+  let product = Product.load(event.params._productId.toString())
 
   if (product == null) {
     return // If product does not exist, do nothing
