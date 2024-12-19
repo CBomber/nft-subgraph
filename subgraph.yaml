@@ -6,11 +6,11 @@ schema:
 dataSources:
   - kind: ethereum
     name: CBomberShop
-    network: base-sepolia
+    network: base
     source:
-      address: "0xDA195512bd126f36aD6cD987102e90Ac608855d8"
+      address: "0xc1cA41552327CCB782793d0Ffb50F616063bD81A"
       abi: CBomberShopABI
-      startBlock: 19286814
+      startBlock: 23901836
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.7
