@@ -33,3 +33,30 @@ dataSources:
         - event: UpdateProduct(uint256,uint256,address,uint256,uint256,bool)
           handler: handleUpdateProduct
       file: ./src/mapping.ts
+    
+  - kind: ethereum
+    name: CBomberMarket
+    network: base
+    source:
+      address: "0x3D36231dc50F7B0d69B151d29575e980Cb9f622d"
+      abi: CBomberMarketABI
+      startBlock: 23901918
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities:
+        - SellNFT
+        - CancelSalesOrder
+        - BuyNFT
+      abis:
+        - name: CBomberMarketABI
+          file: ./abis/CBomberMarket.json
+      eventHandlers:
+        - event: SellNFT(uint256,address,uint256,uint256,uint256,bool,address,uint256)
+          handler: handleSellNFT
+        - event: CancelSalesOrder(uint256,address,uint256)
+          handler: handleCancelSalesOrder
+        - event: BuyNFT(uint256,address,uint256)
+          handler: handleBuyNFT
+      file: ./src/market.ts
