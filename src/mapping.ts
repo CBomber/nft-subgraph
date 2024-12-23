@@ -4,13 +4,15 @@ import {
   Buy as BuyEvent, 
   SetProductState as SetProductStateEvent,
   UpdateProduct as UpdateProductEvent
+  
 } from "../generated/CBomberShop/CBomberShopABI"
 import {
   AddProduct,
   Buy, 
   Product, 
   SetProductState,
-  UpdateProduct
+  UpdateProduct,
+  
 } from "../generated/schema"
 
 export function handleAddProduct(event: AddProductEvent): void {
@@ -127,4 +129,3 @@ export function handleBuy(event: BuyEvent): void {
   product.save()
 
 }
- 

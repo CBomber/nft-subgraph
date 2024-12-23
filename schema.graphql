@@ -56,3 +56,64 @@ type UpdateProduct @entity(immutable: true) {
   blockTimestamp: BigInt!
   transactionHash: Bytes!
 }
+
+
+type SellNFT @entity(immutable: true) {
+  id: Bytes!
+  _id: BigInt! # uint256
+  _nftAddress: Bytes! # address
+  _tokenid: BigInt! # uint256
+  _number: BigInt! # uint256
+  _minSalePriceInWei: BigInt! # uint256
+  _isToken: Boolean! # bool
+  _onlySellTo: Bytes! # address
+  account: Bytes! # address
+  time: BigInt! # uint256
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type CancelSalesOrder @entity(immutable: true) {
+  id: Bytes!
+  _index: BigInt! # uint256
+  seller: Bytes! # address
+  time: BigInt! # uint256 
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type BuyNFT @entity(immutable: true) {
+  id: Bytes!
+  _index: BigInt! # uint256
+  account: Bytes! # address
+  time: BigInt! # uint256
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type NFTOrder @entity {
+  id: ID! # Unique order ID 
+  nftAddress: Bytes!
+  tokenId: BigInt!  
+  isToken: Boolean!
+  minPrice: BigInt!
+  onlySellTo: Bytes!
+  number: BigInt!
+  status: String! # "sold", "forSale", "cancelled"
+  account: Bytes! # address
+  createdAt: BigInt! # Timestamp of the order
+  updatedAt: BigInt! # Timestamp when the order was updated or cancelled
+  cancelledAt: BigInt # Timestamp when the order was cancelled (null if not cancelled)
+}
+
+type TokenActivity @entity {
+  id: ID! # Unique token activity ID
+  tokenId: BigInt! # The tokenId of the NFT being operated on
+  nftAddress: Bytes! # The address of the NFT contract
+  activityType: String! # "Sale" or "Buy"
+  account: Bytes! # Wallet address that performed the activity
+  timestamp: BigInt! # Timestamp of the operation
+}
