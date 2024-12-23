@@ -16,7 +16,7 @@ export function handleSellNFT(event: SellNFTEvent): void {
     let entity = new SellNFT(
         event.transaction.hash.concatI32(event.logIndex.toI32())
     )
-    entity._id = event.params._id
+    entity._index = event.params._id
     entity._nftAddress = event.params._nftAddress
     entity._tokenid = event.params._tokenid
     entity._number = event.params._number
@@ -45,11 +45,12 @@ export function handleSellNFT(event: SellNFTEvent): void {
     order.updatedAt = event.block.timestamp;
 
     order.save();
- 
-    let tokenActivitySell = new TokenActivity(order.tokenId.toString() + "-" + event.transaction.from.toHex());
+
+    let tokenActivitySell = new TokenActivity(order.tokenId.toString() + "-" + event.transaction.from.toString());
     tokenActivitySell.tokenId = order.tokenId;
     tokenActivitySell.nftAddress = order.nftAddress;
     tokenActivitySell.activityType = "Sale";
+    tokenActivitySell.number = event.params._number;
     tokenActivitySell.account = event.transaction.from;
     tokenActivitySell.timestamp = event.block.timestamp;
     tokenActivitySell.save();
@@ -72,15 +73,16 @@ export function handleCancelSalesOrder(event: CancelSalesOrderEvent): void {
 
     let order = NFTOrder.load(event.params._index.toString());
     if (order) {
-        order.number = order.number.minus(BigInt.fromI32(1))
+        order.number = BigInt.fromI32(0); //order.number.minus(BigInt.fromI32(1))
         order.status = "Cancel";
-        order.updatedAt = event.block.timestamp;
+        order.cancelledAt = event.block.timestamp;
         order.save();
-  
-        let tokenActivitySell = new TokenActivity(order.tokenId.toString() + "-" + event.params.seller.toHex());
+
+        let tokenActivitySell = new TokenActivity(order.tokenId.toString() + "-" + event.params.seller.toString());
         tokenActivitySell.tokenId = order.tokenId;
         tokenActivitySell.nftAddress = order.nftAddress;
         tokenActivitySell.activityType = "Cancel";
+        tokenActivitySell.number = BigInt.fromI32(0);
         tokenActivitySell.account = event.params.seller;
         tokenActivitySell.timestamp = event.block.timestamp;
         tokenActivitySell.save();
@@ -106,18 +108,19 @@ export function handleBuyNFT(event: BuyNFTEvent): void {
 
     let order = NFTOrder.load(event.params._index.toString());
     if (order) {
-        order.number = order.number.minus(BigInt.fromI32(1)) 
+        order.number = order.number.minus(BigInt.fromI32(1))
         order.updatedAt = event.block.timestamp;
 
         order.save();
-  
-        let tokenActivitySell = new TokenActivity(order.tokenId.toString() + "-" + event.params.account.toHex());
+
+        let tokenActivitySell = new TokenActivity(order.tokenId.toString() + "-" + event.params.account.toString());
         tokenActivitySell.tokenId = order.tokenId;
         tokenActivitySell.nftAddress = order.nftAddress;
         tokenActivitySell.activityType = "Buy";
+        tokenActivitySell.number = BigInt.fromI32(1);
         tokenActivitySell.account = event.params.account;
         tokenActivitySell.timestamp = event.block.timestamp;
 
-        tokenActivitySell.save(); 
+        tokenActivitySell.save();
     }
 }

@@ -1,5 +1,5 @@
 type Product @entity {
-  id: ID!            # Unique product ID
+  id: ID! # Unique product ID
   productId: BigInt! # uint256
   tokenId: BigInt!
   nftAddress: Bytes!
@@ -7,8 +7,8 @@ type Product @entity {
   sold: BigInt!
   price: BigInt!
   isToken: Boolean!
-  state: Boolean!     # Product availability state
-  createdAt: BigInt!  # Timestamp of product creation
+  state: Boolean! # Product availability state
+  createdAt: BigInt! # Timestamp of product creation
 }
 
 type AddProduct @entity(immutable: true) {
@@ -57,10 +57,9 @@ type UpdateProduct @entity(immutable: true) {
   transactionHash: Bytes!
 }
 
-
 type SellNFT @entity(immutable: true) {
   id: Bytes!
-  _id: BigInt! # uint256
+  _index: BigInt! # uint256
   _nftAddress: Bytes! # address
   _tokenid: BigInt! # uint256
   _number: BigInt! # uint256
@@ -78,7 +77,7 @@ type CancelSalesOrder @entity(immutable: true) {
   id: Bytes!
   _index: BigInt! # uint256
   seller: Bytes! # address
-  time: BigInt! # uint256 
+  time: BigInt! # uint256
   blockNumber: BigInt!
   blockTimestamp: BigInt!
   transactionHash: Bytes!
@@ -95,9 +94,9 @@ type BuyNFT @entity(immutable: true) {
 }
 
 type NFTOrder @entity {
-  id: ID! # Unique order ID 
+  id: ID! # Unique order ID
   nftAddress: Bytes!
-  tokenId: BigInt!  
+  tokenId: BigInt!
   isToken: Boolean!
   minPrice: BigInt!
   onlySellTo: Bytes!
@@ -115,5 +114,6 @@ type TokenActivity @entity {
   nftAddress: Bytes! # The address of the NFT contract
   activityType: String! # "Sale" or "Buy"
   account: Bytes! # Wallet address that performed the activity
+  number: BigInt!
   timestamp: BigInt! # Timestamp of the operation
 }
