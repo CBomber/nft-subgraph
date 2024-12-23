@@ -46,7 +46,7 @@ export function handleSellNFT(event: SellNFTEvent): void {
 
     order.save();
 
-    let tokenActivitySell = new TokenActivity(order.tokenId.toString() + "-" + event.transaction.from.toString());
+    let tokenActivitySell = new TokenActivity(order.tokenId.toString() + "-" + event.transaction.from.toHex());
     tokenActivitySell.tokenId = order.tokenId;
     tokenActivitySell.nftAddress = order.nftAddress;
     tokenActivitySell.activityType = "Sale";
@@ -78,7 +78,7 @@ export function handleCancelSalesOrder(event: CancelSalesOrderEvent): void {
         order.cancelledAt = event.block.timestamp;
         order.save();
 
-        let tokenActivitySell = new TokenActivity(order.tokenId.toString() + "-" + event.params.seller.toString());
+        let tokenActivitySell = new TokenActivity(order.tokenId.toString() + "-" + event.params.seller.toHex());
         tokenActivitySell.tokenId = order.tokenId;
         tokenActivitySell.nftAddress = order.nftAddress;
         tokenActivitySell.activityType = "Cancel";
@@ -113,7 +113,7 @@ export function handleBuyNFT(event: BuyNFTEvent): void {
 
         order.save();
 
-        let tokenActivitySell = new TokenActivity(order.tokenId.toString() + "-" + event.params.account.toString());
+        let tokenActivitySell = new TokenActivity(order.tokenId.toString() + "-" + event.params.account.toHex());
         tokenActivitySell.tokenId = order.tokenId;
         tokenActivitySell.nftAddress = order.nftAddress;
         tokenActivitySell.activityType = "Buy";
