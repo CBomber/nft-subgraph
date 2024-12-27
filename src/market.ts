@@ -43,7 +43,7 @@ export function handleSellNFT(event: SellNFTEvent): void {
     order.account = event.transaction.from
     order.createdAt = event.block.timestamp;
     order.updatedAt = event.block.timestamp;
-
+    order.transactionHash = event.transaction.hash
     order.save();
 
     let tokenActivitySell = new TokenActivity(order.tokenId.toString() + "-" + event.transaction.from.toHex());
@@ -76,6 +76,7 @@ export function handleCancelSalesOrder(event: CancelSalesOrderEvent): void {
         order.number = BigInt.fromI32(0); //order.number.minus(BigInt.fromI32(1))
         order.status = "Cancel";
         order.cancelledAt = event.block.timestamp;
+        order.transactionHash = event.transaction.hash
         order.save();
 
         let tokenActivitySell = new TokenActivity(order.tokenId.toString() + "-" + event.params.seller.toHex());
@@ -109,6 +110,8 @@ export function handleBuyNFT(event: BuyNFTEvent): void {
     let order = NFTOrder.load(event.params._index.toString());
     if (order) {
         order.number = order.number.minus(BigInt.fromI32(1))
+        order.status = "Buy"; 
+        order.transactionHash = event.transaction.hash
         order.updatedAt = event.block.timestamp;
 
         order.save();
