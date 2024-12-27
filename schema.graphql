@@ -106,6 +106,7 @@ type NFTOrder @entity {
   createdAt: BigInt! # Timestamp of the order
   updatedAt: BigInt! # Timestamp when the order was updated or cancelled
   cancelledAt: BigInt # Timestamp when the order was cancelled (null if not cancelled)
+  transactionHash: Bytes!
 }
 
 type TokenActivity @entity {
